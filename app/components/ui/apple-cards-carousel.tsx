@@ -1,34 +1,17 @@
-"use client";
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  createContext,
-  useContext,
-} from "react";
-import {
-  IconArrowNarrowLeft,
-  IconArrowNarrowRight,
-  IconX,
-} from "@tabler/icons-react";
+import React, { useEffect, useRef, useState, createContext, useContext } from "react";
+import { IconArrowNarrowLeft, IconArrowNarrowRight, IconX } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Image, { ImageProps } from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { StickyScroll } from "../ui/sticky-scroll-reveal";
-
-import {dataIndexA, dataIndexB} from "./data/index";
- 
-
-
-  
+import { dataIndexA, dataIndexB } from "./data/index";
 
 interface CarouselProps {
   items: JSX.Element[];
   initialScroll?: number;
 }
 
-    
 type Card = {
   src: string;
   title: string;
@@ -45,11 +28,9 @@ export const CarouselContext = createContext<{
 });
 
 export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
-
-
-  const carouselRef = React.useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
-  const [canScrollRight, setCanScrollRight] = React.useState(true);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -81,7 +62,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
+      const cardWidth = isMobile() ? 230 : 384;
       const gap = isMobile() ? 4 : 8;
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
@@ -92,11 +73,8 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     }
   };
 
-  const isMobile = () => {
-    return window && window.innerWidth < 968;
-  };
+  const isMobile = () => window.matchMedia("(max-width: 968px)").matches;
 
-  
   return (
     <CarouselContext.Provider
       value={{ onCardClose: handleCardClose, currentIndex }}
@@ -109,34 +87,22 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
         >
           <div
             className={cn(
-              "absolute right-0  z-[1000] h-auto  w-[5%] overflow-hidden bg-gradient-to-l"
+              "absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l"
             )}
           ></div>
 
           <div
             className={cn(
               "flex flex-row justify-start gap-4 pl-4",
-              "max-w-7xl mx-auto" // remove max-w-4xl if you want the carousel to span the full width of its container
+              "max-w-7xl mx-auto"
             )}
           >
             {items.map((item, index) => (
               <motion.div
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    duration: 0.5,
-                    delay: 0.2 * index,
-                    ease: "easeOut",
-                    once: true,
-                  },
-                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 * index, ease: "easeOut" } }}
                 key={"card" + index}
-                className="last:pr-[5%] md:last:pr-[33%]  rounded-3xl"
+                className="last:pr-[5%] md:last:pr-[33%] rounded-3xl"
               >
                 {item}
               </motion.div>
@@ -186,20 +152,20 @@ export const Card = ({
 
     if (open) {
       document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", onKeyDown);
     } else {
       document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", onKeyDown);
     }
 
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [open]);
 
   useOutsideClick(containerRef, () => handleClose());
-  
-
 
   const handleOpen = () => {
-    //window.location.hash = '#project';
     setOpen(true);
   };
 
@@ -208,18 +174,17 @@ export const Card = ({
     onCardClose(index);
   };
 
-
-  const getData = () => {
-   // console.log(card.title=="A");
-    if (card.title == "AAA") {
-      return dataIndexA;
-    } else if (card.title == "BBB") {
-      return dataIndexB;
-    }else if (card.title == "CCC") {
+  const getData = (card: { title: string }): { title: string; description: string; content?: React.ReactNode }[] => {
+    switch (card.title) {
+      case "AAA":
+        return dataIndexA;
+      case "BBB":
+      case "CCC":
+      case "DDD":
         return dataIndexB;
-      }else if (card.title == "DDD") {
-        return dataIndexB;
-      }
+      default:
+        return []; // 確保返回一個空數組
+    }
   };
 
   return (
@@ -233,14 +198,13 @@ export const Card = ({
               exit={{ opacity: 0 }}
               className="bg-black/80 backdrop-blur-lg h-full w-full fixed inset-0"
             />
-            
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               ref={containerRef}
               layoutId={layout ? `card-${card.title}` : undefined}
-              className="max-w-5xl mx-auto bg-slate-200 dark:bg-neutral-900 h-fit  z-[60] my-10 p-4 md:p-10 rounded-3xl font-sans relative"
+              className="max-w-5xl mx-auto bg-slate-200 dark:bg-slate-900 h-fit z-[60] my-10 p-4 md:p-10 rounded-3xl font-sans relative"
             >
               <button
                 className="sticky top-4 h-8 w-8 right-0 ml-auto bg-black dark:bg-white rounded-full flex items-center justify-center"
@@ -250,17 +214,19 @@ export const Card = ({
               </button>
               <motion.p
                 layoutId={layout ? `category-${card.title}` : undefined}
-                className="text-base font-medium text-black dark:text-white "
+                className="text-base font-medium text-black dark:text-white"
               >
                 {card.category}
               </motion.p>
               <motion.p
                 layoutId={layout ? `title-${card.title}` : undefined}
-                className="text-2xl md:text-5xl font-semibold text-neutral-700 mt-4 dark:text-white "
+                className="text-2xl md:text-5xl font-semibold text-neutral-700 mt-4 dark:text-white"
               >
                 {card.title}
               </motion.p>
-              <div className="py-10 "> <StickyScroll content={getData()} /></div>
+              <div className="py-10">
+              <StickyScroll content={getData(card)} />
+              </div>
             </motion.div>
           </div>
         )}
@@ -280,7 +246,8 @@ export const Card = ({
           </motion.p>
           <motion.p
             layoutId={layout ? `title-${card.title}` : undefined}
-            className="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2"
+            className="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font```tsx
+            -sans mt-2"
           >
             {card.title}
           </motion.p>
@@ -319,7 +286,7 @@ export const BlurImage = ({
       loading="lazy"
       decoding="async"
       blurDataURL={typeof src === "string" ? src : undefined}
-      alt={alt ? alt : "Background of a beautiful view"}
+      alt={alt || "Background of a beautiful view"}
       {...rest}
     />
   );
