@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, createContext, useContext } from "react";
+import React, { useEffect, useRef, useState, createContext, useContext, useCallback  } from "react";
 import { IconArrowNarrowLeft, IconArrowNarrowRight, IconX } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
@@ -33,20 +33,20 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollLeft = initialScroll;
-      checkScrollability();
-    }
-  }, [initialScroll]);
-
-  const checkScrollability = () => {
+  const checkScrollability = useCallback(() => {
     if (carouselRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
       setCanScrollLeft(scrollLeft > 0);
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
     }
-  };
+  }, []); // 依賴項數組為空，因為它不依賴於其他狀態或屬性
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollLeft = initialScroll;
+      checkScrollability();
+    }
+  }, [initialScroll, checkScrollability]);
 
   const scrollLeft = () => {
     if (carouselRef.current) {
@@ -143,37 +143,38 @@ export const Card = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { onCardClose, currentIndex } = useContext(CarouselContext);
 
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        handleClose();
-      }
-    }
-
-    if (open) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", onKeyDown);
-    } else {
-      document.body.style.overflow = "auto";
-      window.removeEventListener("keydown", onKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
-
-  useOutsideClick(containerRef, () => handleClose());
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
     onCardClose(index);
   };
 
+ // 处理 handleClose 缺少的依赖项
+useEffect(() => {
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.key === "Escape") {
+      handleClose();
+    }
+  }
+
+  if (open) {
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+  } else {
+    document.body.style.overflow = "auto";
+    window.removeEventListener("keydown", onKeyDown);
+  }
+
+  return () => {
+    window.removeEventListener("keydown", onKeyDown);
+  };
+}, [open, handleClose]); 
+
+  useOutsideClick(containerRef, () => handleClose());
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const getData = (card: { title: string }): { title: string; description: string; content?: React.ReactNode }[] => {
     switch (card.title) {
       case "AAA":
@@ -186,7 +187,6 @@ export const Card = ({
         return []; // 確保返回一個空數組
     }
   };
-
   return (
     <>
       <AnimatePresence>
