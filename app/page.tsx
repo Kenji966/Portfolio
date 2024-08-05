@@ -93,11 +93,11 @@ export default function Home() {
   };
 
 
-const images = [
-  "/Game2.GIF",
-  "/Game2.GIF",
-  "/Game2.GIF",
-];
+  const images = [
+    "/Game2.GIF",
+    "/Game2.GIF",
+    "/Game2.GIF",
+  ];
 
 
     const introduction = `I am a versatile technology professional with a solid foundation in game development, augmented reality (AR), and full-stack programming. My skills range from creating engaging games with Unity and C# to developing immersive AR experiences using tools like SparkAR and AR.js. I also build robust web applications and manage databases effectively. My passion for new technologies and commitment to high-quality results drive me to continually enhance my skills and stay updated with industry trends.`;
@@ -223,7 +223,7 @@ const images = [
 
 
 <div className="md:gap-16 gap-16">
-<section id="contect">  
+<section id="contact">  
   <div className="h-auto md:h-[27rem] w-full rounded-md flex flex-col items-center justify-center antialiased relative overflow-auto bg-black">
     <h2 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50  bg-opacity-50">
       <br />   
@@ -295,26 +295,26 @@ const data = [
   {
     category: "AAA",
     title: "AAA",
-    src: "/Game2.gif",  
+    src: "/Game2.GIF",  
     content: <div></div> 
   },
   {
     category: "BBB",
     title: "BBB",
-    src: "/Game2.gif",   
+    src: "/Game2.GIF",   
     content: <div></div> 
   },
   {
     category: "CCC",
     title: "CCC",
-    src: "/Game2.gif",   
+    src: "/Game2.GIF",   
     content: <div></div> 
   },
  
   {
     category: "Product",
     title: "DDD",
-    src: "/Game2.gif",   
+    src: "/Game2.GIF",   
     content: <div></div> 
   },
 ];
