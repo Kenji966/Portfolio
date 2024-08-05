@@ -19,7 +19,6 @@ import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 import { MailIcon ,PhoneIcon, LocateIcon, PhoneOutgoing  } from "lucide-react";
 
 import { debug } from "console";
- 
 
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
 
@@ -30,7 +29,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "./components/ui/card"
 import {
   ChartConfig,
   ChartContainer,
@@ -107,7 +106,7 @@ export default function Home() {
       
     
     <FloatingNav navItems={navItems} />
-    <div className="h-[17rem] md:h-[27rem] w-full rounded-md flex flex-col items-center justify-center antialiased relative overflow-x-hidden bg-black">
+    <div className="h-[14rem] md:h-[24rem] w-full rounded-md flex flex-col items-center justify-center antialiased relative overflow-x-hidden bg-black">
     <Spotlight
       className="-top-40 left-0 md:left-60 md:-top-20"
       fill="white"
@@ -295,44 +294,29 @@ const data = [
   {
     category: "AAA",
     title: "AAA",
-    src: "/Game2.gif",   
+    src: "/Game2.gif",  
+    content: <div></div> 
   },
   {
     category: "BBB",
     title: "BBB",
     src: "/Game2.gif",   
+    content: <div></div> 
   },
   {
     category: "CCC",
     title: "CCC",
     src: "/Game2.gif",   
+    content: <div></div> 
   },
  
   {
     category: "Product",
     title: "DDD",
     src: "/Game2.gif",   
+    content: <div></div> 
   },
 ];
-
-export const Highlight = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <span
-      className={cn(
-        "font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5",
-        className
-      )}
-    >
-      {children}
-    </span>
-  );
-};
 
 const CARDS = [
   {
@@ -341,11 +325,12 @@ const CARDS = [
     designation: "",
     content: (
       <p>
-      I am passionate about <Highlight>Front-End Development</Highlight>, specializing in<Highlight>HTML5 & JavaScript</Highlight> . 
+      I am passionate about <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">Front-End Development</a>, 
+      specializing in<a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">HTML5 & JavaScript</a> . 
       My experience in game design enhances my ability to create engaging and user-friendly Web experiences.
       <br/><br/>
-      I’ve used  <Highlight>Next.js</Highlight> to build my portfolio, showcasing my enthusiasm for modern Web technologies. 
-      Additionally, I have experience with <Highlight>CMS & MySQL</Highlight> , supporting my skills in creating complete Web solutions.
+      I’ve used  <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">Next.js</a> to build my portfolio, showcasing my enthusiasm for modern Web technologies. 
+      Additionally, I have experience with <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">CMS & MySQL</a> , supporting my skills in creating complete Web solutions.
       </p>
     ),
   },
@@ -355,10 +340,10 @@ const CARDS = [
     designation: "",
     content: (
       <p>
-    I specialize in Unity game development with <Highlight>C#</Highlight> , focusing on creating engaging gameplay and interactive experiences. 
-    I excel in<Highlight>Game mechanics, Physics, Animations</Highlight> , and <Highlight>UI Design</Highlight> , optimizing performance to ensure smooth gameplay and high user engagement.
+    I specialize in Unity game development with <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">C#</a> , focusing on creating engaging gameplay and interactive experiences. 
+    I excel in<a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">Game mechanics, Physics, Animations</a> , and <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">UI Design</a> , optimizing performance to ensure smooth gameplay and high user engagement.
      <br/><br/>
-     I am passionate about diverse platform and mode experiences, including<Highlight> PC, Web, Mobile</Highlight>, and <Highlight> AR</Highlight>.
+     I am passionate about diverse platform and mode experiences, including<a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5"> PC, Web, Mobile</a>, and <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5"> AR</a>.
      I enjoy exploring new technologies and continuously refining my work based on player feedback to ensure exceptional visual and interactive experiences.
       </p>  
     ),
@@ -369,10 +354,10 @@ const CARDS = [
     designation: "",
     content: (
       <p>
-      I specialize in developing AR applications using tools like <Highlight>SparkAR, AR.js, AR Foundation</Highlight>, and <Highlight>Niantic Lightship ARDK</Highlight>. 
+      I specialize in developing AR applications using tools like <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">SparkAR, AR.js, AR Foundation</a>, and <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">Niantic Lightship ARDK</a>. 
       My focus is on creating immersive and interactive AR experiences with features such as real-time data overlays.
       <br/><br/>
-      I design AR solutions for various applications, including <Highlight>Marketing</Highlight> and <Highlight>Education</Highlight> , 
+      I design AR solutions for various applications, including <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">Marketing</a> and <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">Education</a> , 
       blending technology with creativity to craft unique and engaging user experiences. 
       I continually explore new technologies to enhance and refine AR interactions, ensuring each project delivers exceptional and innovative results.
       </p>
@@ -384,11 +369,11 @@ const CARDS = [
     designation: "",
     content: (
       <p>
-      I am proficient in <Highlight>Object-Oriented Programming (OOP) </Highlight>and <Highlight>Data Structures</Highlight>, with experience in <Highlight>Game Dev, Web Dev, Java</Highlight>, and <Highlight>Python</Highlight> . 
+      I am proficient in <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">Object-Oriented Programming (OOP) </a>and <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">Data Structures</a>, with experience in <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">Game Dev, Web Dev, Java</a>, and <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">Python</a> . 
       I leverage this knowledge to enhance software performance and development efficiency.
       <br/><br/>
       I apply theoretical concepts to real-world projects, optimizing system performance and developing scalable applications. 
-      Beyond programming, I have a foundation in <Highlight>IT Hardware and Networking</Highlight> , and I am excited about exploring various technology fields.
+      Beyond programming, I have a foundation in <a className="font-bold bg-emerald-100 text-blue-500 dark:bg-emerald-700/[0.2] dark:text-blue-300 px-1 py-0.5">IT Hardware and Networking</a> , and I am excited about exploring various technology fields.
       </p>
     ),
   },
