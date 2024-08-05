@@ -93,10 +93,11 @@ export default function Home() {
   };
 
 
-  const images = [
-    "/Game2.gif",
-    "/Game2.gif",
-    "/Game2.gif",];
+const images = [
+  "/Game2.GIF",
+  "/Game2.GIF",
+  "/Game2.GIF",
+];
 
 
     const introduction = `I am a versatile technology professional with a solid foundation in game development, augmented reality (AR), and full-stack programming. My skills range from creating engaging games with Unity and C# to developing immersive AR experiences using tools like SparkAR and AR.js. I also build robust web applications and manage databases effectively. My passion for new technologies and commitment to high-quality results drive me to continually enhance my skills and stay updated with industry trends.`;
