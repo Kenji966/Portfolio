@@ -144,38 +144,39 @@ export const Card = ({
   const { onCardClose, currentIndex } = useContext(CarouselContext);
 
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false);
     onCardClose(index);
-  };
+  }, [index, onCardClose]);
 
- // 处理 handleClose 缺少的依赖项
-useEffect(() => {
-  function onKeyDown(event: KeyboardEvent) {
-    if (event.key === "Escape") {
-      handleClose();
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        handleClose();
+      }
     }
-  }
 
-  if (open) {
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
-  } else {
-    document.body.style.overflow = "auto";
-    window.removeEventListener("keydown", onKeyDown);
-  }
 
-  return () => {
-    window.removeEventListener("keydown", onKeyDown);
-  };
-}, [open, handleClose]); 
+    if (open) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", onKeyDown);
+    } else {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", onKeyDown);
+    }
 
-  useOutsideClick(containerRef, () => handleClose());
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open, handleClose]);
+
+  useOutsideClick(containerRef, handleClose);
 
   const handleOpen = () => {
     setOpen(true);
   };
-  const getData = (card: { title: string }): { title: string; description: string; content?: React.ReactNode }[] => {
+
+  const getData = useCallback((card: { title: string }): { title: string; description: string; content?: React.ReactNode }[] => {
     switch (card.title) {
       case "AAA":
         return dataIndexA;
@@ -184,9 +185,10 @@ useEffect(() => {
       case "DDD":
         return dataIndexB;
       default:
-        return []; // 確保返回一個空數組
+        return [];
     }
-  };
+  }, []);
+
   return (
     <>
       <AnimatePresence>
