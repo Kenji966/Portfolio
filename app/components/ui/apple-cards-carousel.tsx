@@ -10,6 +10,7 @@ import { dataIndexA, dataIndexB } from "./data/index";
 interface CarouselProps {
   items: JSX.Element[];
   initialScroll?: number;
+  className?: string; // 允许接收 className 属性
 }
 
 type Card = {
@@ -50,13 +51,13 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
   const scrollLeft = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
+      carouselRef.current.scrollBy({ left: -500, behavior: "smooth" }); // 可以调整 duration 来控制速度
     }
   };
-
+  
   const scrollRight = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
+      carouselRef.current.scrollBy({ left: 500, behavior: "smooth" }); // 可以调整 duration 来控制速度
     }
   };
 
@@ -110,20 +111,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
           </div>
         </div>
         <div className="flex justify-center gap-2 mr-10">
-          <button
-            className="relative z-40 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
-            onClick={scrollLeft}
-            disabled={!canScrollLeft}
-          >
-            <IconArrowNarrowLeft className="h-6 w-6 text-gray-500" />
-          </button>
-          <button
-            className="relative z-40 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
-            onClick={scrollRight}
-            disabled={!canScrollRight}
-          >
-            <IconArrowNarrowRight className="h-6 w-6 text-gray-500" />
-          </button>
+         
         </div>
       </div>
     </CarouselContext.Provider>
