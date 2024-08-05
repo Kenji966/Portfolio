@@ -43,7 +43,7 @@ const chartData = [
   { Skill: "AR application", Proficiency: 250 },
   { Skill: "Database/CMS", Proficiency: 190 },
   { Skill: "Design", Proficiency: 214 },
-  { Skill: "Coding-Foundations", Proficiency: 250 },
+  { Skill: "IT Foundations", Proficiency: 250 },
 ]
 const chartConfig = {
   Proficiency: {
@@ -107,7 +107,7 @@ export default function Home() {
       
     
     <FloatingNav navItems={navItems} />
-    <div className="h-[14rem] md:h-[24rem] w-full rounded-md flex flex-col items-center justify-center antialiased relative overflow-x-hidden bg-black">
+    <div className="h-[rem] md:h-[rem] w-full rounded-md flex flex-col items-center justify-center antialiased relative overflow-hidden  bg-black">
     <Spotlight
       className="-top-40 left-0 md:left-60 md:-top-20"
       fill="white"
@@ -116,59 +116,52 @@ export default function Home() {
       <div className="h-full w-full  flex items-center justify-center">
       <br />
     <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 bg-opacity-50">
+      <br />
     <FlipWords words={words}/> Developer <br /> Portforlio
 
       </h1>
     </div></section> 
-      <br />
       <div className="text-sm md:text-sm text-center bg-clip-text from-white max-w-screen-sm mx-auto">
+        <br />
       <TypewriterEffectSmooth words={TypeWords} />
     </div>
   </div>
 
-  <ImagesSlider className="h-[75rem]" images={images}>
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: -80,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 0.6,
-        }}
-        className="z-50 flex flex-col justify-center items-center"
-      >
-      <h2 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50  bg-opacity-50">
-        My Project
-      </h2>
-        <motion.p className="font-bold text-xl md:text-6xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-4">
-          
-<section id="project" className="section">    
-  <Carousel items={cards} />
-</section>
-        </motion.p>
-        
-      </motion.div>
-    </ImagesSlider>
+<ImagesSlider className="h-[31rem] md:h-[54rem] overflow-hidden relative" images={images}>
+  <motion.div
+    initial={{ opacity: 0, y: -80 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6 }}
+    className="z-50 flex flex-col justify-center items-center h-full w-full"
+  >
+    <h2 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-tr from-slate-300 bg-opacity-5">
+     
+    </h2>
+    <motion.p className="font-bold text-xl md:text-6xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-4">
+      {/* Content */}
+    </motion.p>
     
+    <section id="project" className="section w-full h-full">
+      <Carousel items={cards} className="carousel-container" />
+    </section>
+  </motion.div>
+</ImagesSlider>
+
 <section id="about">    
 
-<br/>
-<br/>
+<br />
+
 <div className="md:gap-4 gap-16">
 <h2 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50  bg-opacity-50">
   Who AM I ?
     <br/>
   </h2>
-  <h2 className="text-sm md:text-sm text-center bg-clip-text from-white max-w-screen-sm mx-auto">
-    <TextGenerateEffect words={introduction} />
+  <div className="text-center bg-clip-text from-white mx-auto max-w-screen-sm portrait:max-w-80">
+  <TextGenerateEffect words={introduction} />
+</div></div>
     <br/>
     <br/>
     <br/>
-    </h2></div>
   <div className="flex flex-col md:flex-row md:gap-4 gap-16 justify-center items-center">
   <div className="flex flex-col md:flex-row md:gap-4 gap-16 justify-center items-center w-full max-w-7xl">
   {/* CardStack 部分 */}
@@ -190,7 +183,7 @@ export default function Home() {
         <div className="flex items-center justify-center">
           <ChartContainer
             config={chartConfig}
-            className="w-[450px] h-[450px]"
+            className="w-[400px] h-[400px]"
           >
             <RadarChart data={chartData}>
               <ChartTooltip
@@ -198,7 +191,7 @@ export default function Home() {
                 content={<ChartTooltipContent hideLabel />}
               />
               <PolarGrid className="fill-[--color-Proficiency] opacity-20" />
-              <PolarAngleAxis dataKey="Skill" tick={{ fontSize: 7.5 }} />
+              <PolarAngleAxis dataKey="Skill" tick={{ fontSize: 8.4 }} />
               <Radar
                 dataKey="Proficiency"
                 fill="var(--color-Proficiency)"
@@ -268,7 +261,7 @@ export default function Home() {
     <div></div>
   </div>
 </section>
-  </div>
+  </div>   
 </div>
 )
 };
@@ -312,11 +305,23 @@ const data = [
   },
  
   {
-    category: "Product",
+    category: "DDD",
     title: "DDD",
     src: "/Game2.GIF",   
     content: <div></div> 
+  },{
+    category: "EEE",
+    title: "EEE",
+    src: "/Game2.GIF",  
+    content: <div></div> 
   },
+  {
+    category: "FFF",
+    title: "FFF",
+    src: "/Game2.GIF",   
+    content: <div></div> 
+  },
+  
 ];
 
 const CARDS = [
